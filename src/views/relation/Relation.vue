@@ -14,60 +14,66 @@
                 </span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text>
-                <form>
-                  <v-card-title>
-                    <span class="headline">{{
-                      $t("Please enter your address")
-                    }}</span>
-                  </v-card-title>
-                  <v-card-text>
-                    <v-text-field
-                      :label="$t('Address')"
-                      v-model="queryAccount"
-                      :error-messages="queryAccountErrors"
-                      required
-                      @input="$v.queryAccount.$touch()"
-                      @blur="$v.queryAccount.$touch()"
-                      :autofocus="queryAccountFocus"
-                      append-icon="mdi-close"
-                      @click:append="appendIconCallback"
-                    ></v-text-field>
-                  </v-card-text>
-                  <v-card-actions class="justify-center custom-btn">
-                    <v-btn
-                      large
-                      color="#93B954"
-                      dark
-                      width="80%"
-                      :disabled="!submitLoading"
-                      @click="queryInvitee"
-                    >
-                      {{ $t("Query Invitee") }}
-                    </v-btn>
-                  </v-card-actions>
-                  <v-card-actions class="justify-center custom-btn">
-                    <v-btn
-                      large
-                      width="80%"
-                      :disabled="!submitLoading"
-                      @click="queryInviter"
-                    >
-                      {{ $t("Query Inviter") }}
-                    </v-btn>
-                  </v-card-actions>
-                </form>
-              </v-card-text>
-              <v-divider v-if="isQuery && dataList.length > 0"></v-divider>
-              <v-list v-if="isQuery && dataList.length > 0">
-                <v-list-item
-                  >{{ $t("Result Count") }}: {{ dataList.length }}</v-list-item
-                >
-                <v-list-item-group active-class="green--text">
-                  <template v-for="(item, index) in dataList">
+              <template
+                v-if="(chainId === 56 || chainId === 128) && contractAddress"
+              >
+                <v-card-text>
+                  <form>
+                    <v-card-title>
+                      <span class="headline">{{
+                        $t("Please enter your address")
+                      }}</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-text-field
+                        :label="$t('Address')"
+                        v-model="queryAccount"
+                        :error-messages="queryAccountErrors"
+                        required
+                        @input="$v.queryAccount.$touch()"
+                        @blur="$v.queryAccount.$touch()"
+                        :autofocus="queryAccountFocus"
+                        append-icon="mdi-close"
+                        @click:append="appendIconCallback"
+                      ></v-text-field>
+                    </v-card-text>
+                    <v-card-actions class="justify-center custom-btn">
+                      <v-btn
+                        large
+                        color="#93B954"
+                        dark
+                        width="80%"
+                        :disabled="!submitLoading"
+                        @click="queryInvitee"
+                      >
+                        {{ $t("Query Invitee") }}
+                      </v-btn>
+                    </v-card-actions>
+                    <v-card-actions class="justify-center custom-btn">
+                      <v-btn
+                        large
+                        width="80%"
+                        :disabled="!submitLoading"
+                        @click="queryInviter"
+                      >
+                        {{ $t("Query Inviter") }}
+                      </v-btn>
+                    </v-card-actions>
+                  </form>
+                </v-card-text>
+                <v-divider v-if="isQuery && dataList.length > 0"></v-divider>
+                <v-list v-if="isQuery && dataList.length > 0">
+                  <v-list-item
+                    >{{ $t("Result Count") }}:
+                    {{ dataList.length }}</v-list-item
+                  >
+                  <v-list-item-group
+                    v-for="(item, index) in dataList"
+                    :key="item"
+                    active-class="green--text"
+                  >
                     <v-list-item
                       class="text-caption"
-                      :key="item"
                       @click="handleCopy(item, $event)"
                     >
                       {{ item }}
@@ -76,19 +82,28 @@
                       v-if="index < dataList.length - 1"
                       :key="index"
                     ></v-divider>
-                  </template>
-                </v-list-item-group>
-              </v-list>
-              <v-alert
-                v-else-if="isQuery && dataList.length <= 0"
-                class="ma-4"
-                outlined
-                type="warning"
-                prominent
-                border="left"
-              >
-                {{ $t("No Data") }}
-              </v-alert>
+                  </v-list-item-group>
+                </v-list>
+                <v-alert
+                  v-else-if="isQuery && dataList.length <= 0"
+                  class="ma-4"
+                  outlined
+                  type="warning"
+                  prominent
+                  border="left"
+                >
+                  {{ $t("No Data") }}
+                </v-alert>
+              </template>
+              <template v-else>
+                <v-card-text>
+                  <v-row align="center">
+                    <v-col class="subtitle-1" cols="12">
+                      {{ $t("The current chain does not support operation") }}
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </template>
             </v-card>
           </v-card>
           <v-card justify="center" class="fill-width mt-10">
@@ -156,14 +171,10 @@
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 import clip from "@/utils/clipboard";
-import {
-  ZeroAddress,
-  RelationContractHECOAddress,
-  RelationContractBSCAddress
-} from "@/constants";
+import { ZeroAddress, RelationContractAddress } from "@/constants";
 import { getContractByABI, toChecksumAddress } from "@/utils/web3";
 // 引入合约 ABI 文件
-import RelationABI from "@/constants/contractJson/RelationshipABI.json";
+import RelationABI from "@/constants/abi/Relationship_abi.json";
 
 export default {
   name: "Relation",
@@ -172,7 +183,7 @@ export default {
     queryAccount: { required }
   },
   data: () => ({
-    contractAddress: RelationContractBSCAddress,
+    contractAddress: null,
     loading: false,
     queryAccountFocus: true,
     queryAccount: undefined,
@@ -191,23 +202,13 @@ export default {
     if (!this.web3 || !this.connected) {
       this.onConnect();
     }
-    if (this.chainId === 128) {
-      this.contractAddress = RelationContractHECOAddress;
-    } else if (this.chainId === 56) {
-      this.contractAddress = RelationContractBSCAddress;
-    } else {
-      this.contractAddress = RelationContractBSCAddress;
+    if (this.chainId === 56 || this.chainId === 128) {
+      this.contractAddress = RelationContractAddress[this.chainId];
     }
   },
   watch: {
     chainId(chainId) {
-      if (chainId === 128) {
-        this.contractAddress = RelationContractHECOAddress;
-      } else if (chainId === 56) {
-        this.contractAddress = RelationContractBSCAddress;
-      } else {
-        this.contractAddress = RelationContractBSCAddress;
-      }
+      this.contractAddress = RelationContractAddress[chainId];
     }
   },
   computed: {

@@ -34,6 +34,14 @@
             text
             >{{ $t("Relation") }}</v-tab
           >
+          <v-tab
+            to="/burn"
+            :ripple="false"
+            class="font-weight-bold"
+            min-width="96"
+            text
+            >{{ $t("Burn") }}</v-tab
+          >
         </v-tabs>
       </div>
 
@@ -62,6 +70,9 @@
         <v-list-item-group v-model="group" color="#93B954">
           <v-list-item to="/relation">
             <v-list-item-title>{{ $t("Relation") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/burn">
+            <v-list-item-title>{{ $t("Burn") }}</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>

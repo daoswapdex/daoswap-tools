@@ -10,6 +10,7 @@ export default {
   DAO: "DAO",
   Node: "节点",
   Relation: "关联关系",
+  Burn: "燃烧",
 
   Close: "关闭",
   "No Data": "暂无数据",
@@ -68,5 +69,27 @@ export default {
   "Please enter your inviter's address": "请输入邀请人地址",
   "The address is wrong": "地址错误",
   "The inviter's address is wrong": "邀请地址错误",
-  "The current account does not have query permission": "当前账号没有查询权限"
+  "The current account does not have query permission": "当前账号没有查询权限",
+
+  "The current chain does not support operation": "当前链不支持操作",
+
+  Token: {
+    Address: "地址",
+    Symbol: "符号",
+    TotalSupply: "总发行量",
+    Balance: "余额"
+  },
+
+  BurnForm: {
+    "Burn Amount": "燃烧额度",
+    "The amount exceeds the allowance amount": "金额超过账户授权额度",
+    "The amount exceeds the balance": "金额超过可用账户余额",
+    "The amount exceeds the max burn amount": "金额超过最大可燃烧额度",
+    "The amount is be gt zero": "燃烧额度必须大于0",
+    "Invalid amount": "不可用的数值",
+    "The amount is required": "请填写燃烧额度",
+    "The amount does not meet the requirements": "燃烧额度不符合要求"
+  },
+
+  "Burn Success": "燃烧完成"
 };

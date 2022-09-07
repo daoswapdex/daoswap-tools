@@ -10,6 +10,7 @@ export default {
   DAO: "DAO",
   Node: "Node",
   Relation: "Relation",
+  Burn: "Burn",
 
   Close: "Close",
   "No Data": "No Data",
@@ -69,5 +70,31 @@ export default {
   "The address is wrong": "The address is wrong",
   "The inviter's address is wrong": "The inviter's address is wrong",
   "The current account does not have query permission":
-    "The current account does not have query permission"
+    "The current account does not have query permission",
+
+  "The current chain does not support operation":
+    "The current chain does not support operation",
+
+  Token: {
+    Address: "Address",
+    Symbol: "Symbol",
+    TotalSupply: "TotalSupply",
+    Balance: "Balance"
+  },
+
+  BurnForm: {
+    "Burn Amount": "Burn Amount",
+    "The amount exceeds the allowance amount":
+      "The amount exceeds the allowance amount",
+    "The amount exceeds the balance": "The amount exceeds the balance",
+    "The amount exceeds the max burn amount":
+      "The amount exceeds the max burn amount",
+    "The amount is be gt zero": "The amount is be gt zero",
+    "Invalid amount": "Invalid amount",
+    "The amount is required": "The amount is required",
+    "The amount does not meet the requirements":
+      "The amount does not meet the requirements"
+  },
+
+  "Burn Success": "Burn Success"
 };

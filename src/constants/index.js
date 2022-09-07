@@ -1,8 +1,13 @@
-export const RelationContractHECOAddress =
-  "0x9CDa2640Ca2bA988a50fEf1875dd5e95794a85d3";
+export const RelationContractAddress = {
+  56: "0x890A071e53230733154ea3eFdF5D7CB3ae9dFA19",
+  128: "0x9CDa2640Ca2bA988a50fEf1875dd5e95794a85d3"
+};
 
-export const RelationContractBSCAddress =
-  "0x890A071e53230733154ea3eFdF5D7CB3ae9dFA19";
+export const DAOContractAddress = {
+  56: "0xc096332CAacF00319703558988aD03eC6586e704",
+  128: "0xc096332CAacF00319703558988aD03eC6586e704",
+  256: "0xd2f169c79553654452a3889b210AEeF494eB2374"
+};
 
 /********** base **********/
 export const DAOAddress = "0xc096332CAacF00319703558988aD03eC6586e704";
@@ -17,10 +22,8 @@ export const CHAIN_ID = process.env.VUE_APP_CHAIN_ID || 128;
 
 export const NETWORK_ID = process.env.VUE_APP_NETWORK_ID || 128;
 
-export const WHITE_LISTS_SWITCH = false;
+export const WHITE_LISTS_SWITCH = true;
 export const WHITE_LISTS = [
   "0x9b1d0c9c1aE96011776e6786b4Efe884665918D2",
-  "0xa9bB710996d6ed61B83a5EAB583bAe683199c2de",
-  "0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2",
-  "0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B"
+  "0xeCF0Fb9DF437A6b9a9cEB640cC4beb56710F470f"
 ];

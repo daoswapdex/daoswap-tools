@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Relation from "../views/relation/Relation.vue";
+import BurnDAO from "../views/burn/BurnDAO.vue";
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,11 @@ const routes = [
         path: "/relation",
         name: "Relation",
         component: Relation
+      },
+      {
+        path: "/burn",
+        name: "Burn",
+        component: BurnDAO
       },
       {
         path: "/404",
