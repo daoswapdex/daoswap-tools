@@ -67,7 +67,14 @@
                     >{{ $t("Result Count") }}:
                     {{ dataList.length }}</v-list-item
                   >
-                  <v-list-item-group
+                  <p class="ps-5 pe-5" v-for="item in dataList" :key="item">
+                    {{ item }}
+                    <!-- <v-divider
+                      v-if="index < dataList.length - 1"
+                      :key="index"
+                    ></v-divider> -->
+                  </p>
+                  <!-- <v-list-item-group
                     v-for="(item, index) in dataList"
                     :key="item"
                     active-class="green--text"
@@ -82,7 +89,7 @@
                       v-if="index < dataList.length - 1"
                       :key="index"
                     ></v-divider>
-                  </v-list-item-group>
+                  </v-list-item-group> -->
                 </v-list>
                 <v-alert
                   v-else-if="isQuery && dataList.length <= 0"
